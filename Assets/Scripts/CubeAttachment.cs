@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class CubeAttachment : MonoBehaviour
 {
-    public Action<Collision, float> cubeAttach;
+    public Action<GameObject> cubeAttach;
     public Action<Collision> cubeDetach;
-
-    private float posX;
 
     public void Start()
     {
@@ -16,13 +14,12 @@ public class CubeAttachment : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        posX = transform.position.x;
-        cubeAttach(collision, posX);
+        cubeAttach(collision.gameObject);
     }
 
-    public void Attachment(Collision collision, float posX)
+    public void Attachment(GameObject other)
     {
-        //collision.transform.position.x = posX;
-        collision.transform.parent = transform.parent;
+        other.transform.position = new Vector3(transform.position.x, transform.position.y + GetComponent<Renderer>().bounds.size.y, transform.position.z);
+        other.transform.parent = transform.parent;
     }
 }
