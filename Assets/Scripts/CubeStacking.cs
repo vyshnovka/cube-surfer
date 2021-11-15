@@ -15,8 +15,9 @@ public class CubeStacking : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Cube" && collision.transform.parent == null)
+        if (collision.gameObject.tag == "Cube")
         {
+            collision.gameObject.tag = "Untagged";
             cubeAttach(collision.gameObject);
         }
         else if (collision.gameObject.tag == "Obstacle")
@@ -27,7 +28,7 @@ public class CubeStacking : MonoBehaviour
 
     public void Attachment(GameObject other)
     {
-        other.transform.position = new Vector3(transform.position.x, transform.position.y + GetComponent<Renderer>().bounds.size.y * (transform.parent.childCount - 1) + 0.1f, transform.position.z);
+        other.transform.position = new Vector3(transform.position.x, transform.position.y + GetComponent<Renderer>().bounds.size.y * transform.parent.childCount + 0.1f, transform.position.z);
         other.AddComponent<CubeStacking>();
         other.transform.parent = transform.parent;
     }
@@ -39,7 +40,8 @@ public class CubeStacking : MonoBehaviour
             child.tag = "Untagged";
         }
 
-        transform.parent = null; //maybe this is wrong?
+        //Destroy(GetComponent<CubeStacking>());
+        transform.parent = null;
     }
 
     public void OnDestroy()
