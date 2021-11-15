@@ -9,7 +9,7 @@ public class CubeMovement : MonoBehaviour
 
     //public float moveLimit = 5f;
 
-    void Update()
+    public void Update()
     {
         transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
