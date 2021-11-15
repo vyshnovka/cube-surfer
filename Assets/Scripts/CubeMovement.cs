@@ -17,6 +17,15 @@ public class CubeMovement : MonoBehaviour
         {
             float mouseX = Input.GetAxisRaw("Mouse X");
             transform.Translate(Vector3.right * mouseX * sideSpeed * Time.deltaTime);
+
+            if (transform.position.x > 2.2f)
+            {
+                transform.position = new Vector3(2.2f, transform.position.y, transform.position.z);
+            }
+            if (transform.position.x < -2.2f)
+            {
+                transform.position = new Vector3(-2.2f, transform.position.y, transform.position.z);
+            }
         }
     }
 }
