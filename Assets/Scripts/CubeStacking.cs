@@ -28,7 +28,8 @@ public class CubeStacking : MonoBehaviour
 
     public void Attachment(GameObject other)
     {
-        other.transform.position = new Vector3(transform.position.x, transform.position.y + GetComponent<Renderer>().bounds.size.y * transform.parent.childCount + 0.1f, transform.position.z);
+        other.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+        other.transform.position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * transform.parent.childCount + 0.1f, transform.position.z);
         other.AddComponent<CubeStacking>();
         other.transform.parent = transform.parent;
     }
@@ -40,7 +41,7 @@ public class CubeStacking : MonoBehaviour
             child.tag = "Untagged";
         }
 
-        //Destroy(GetComponent<CubeStacking>());
+        Destroy(GetComponent<CubeStacking>());
         transform.parent = null;
     }
 
