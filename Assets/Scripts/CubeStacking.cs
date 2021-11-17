@@ -27,6 +27,10 @@ public class CubeStacking : MonoBehaviour
         {
             cubeDetach(collision.gameObject);
         }
+        else if (collision.gameObject.tag == "Finish")
+        {
+            StateManager.finish();
+        }
     }
 
     public void Attachment(GameObject other)
