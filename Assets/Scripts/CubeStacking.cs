@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CubeStacking : MonoBehaviour
 {
     public Action<GameObject> cubeAttach;
     public Action<GameObject> cubeDetach;
+
+    public GameObject humanModel;
 
     public void Start()
     {
@@ -28,8 +31,8 @@ public class CubeStacking : MonoBehaviour
 
     public void Attachment(GameObject other)
     {
-        other.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-        other.transform.position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * transform.parent.childCount + 0.1f, transform.position.z);
+        other.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+        other.transform.position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * (transform.parent.childCount - 1) + 0.1f, transform.position.z);
         other.AddComponent<CubeStacking>();
         other.transform.parent = transform.parent;
     }
