@@ -94,7 +94,7 @@ public class ObjectRandomizer : MonoBehaviour
         int cubeCount;
         float cubeOffset;
 
-        for (cubePositionZ = 15, cubePositionX = 15; cubePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 120; cubePositionZ += 10)
+        for (cubePositionZ = 15, cubePositionX = 15; cubePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 20; cubePositionZ += 10)
         {
             cubeCount = UnityEngine.Random.Range(1, 4);
             cubeOffset = UnityEngine.Random.Range(-2.3f, 2.3f);
@@ -112,7 +112,7 @@ public class ObjectRandomizer : MonoBehaviour
                 {
                     Instantiate(cubePrefab, new Vector3(cubePositionX, cubePrefab.GetComponent<Renderer>().bounds.size.y * i + 0.1f, 206 + cubeOffset), Quaternion.Euler(new Vector3(0, 0, 0)));
                 }
-                cubePositionX += 15;
+                cubePositionX += 10;
             }
         }
     }
