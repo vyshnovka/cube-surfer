@@ -10,10 +10,26 @@ public class ObjectRandomizer : MonoBehaviour
     public GameObject cubePrefab;
 
     public GameObject road;
+    public GameObject roadPart;
+    public GameObject roadHalfPart;
 
     public void Start()
     {
         partRemover += removePart;
+
+        roadBuild();
+    }
+
+    public void roadBuild()
+    {
+        GameObject newRoadPart;
+        int roadPosition;
+
+        for (roadPosition = 6; roadPosition < 400; roadPosition += 6)
+        {
+            newRoadPart = Instantiate(roadPart, new Vector3(0, -0.55f, roadPosition), Quaternion.Euler(new Vector3(0, 0, 0)));
+            newRoadPart.transform.SetParent(road.transform);
+        }
 
         randomizer();
     }
@@ -24,13 +40,13 @@ public class ObjectRandomizer : MonoBehaviour
         int obstaclePosition;
         int cubePosition;
 
-        for (obstaclePosition = 20; obstaclePosition < road.GetComponent<Renderer>().bounds.size.z; obstaclePosition += 20)
+        for (obstaclePosition = 20; obstaclePosition < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount; obstaclePosition += 20)
         {
             newObstacle = Instantiate(obstaclePrefab, new Vector3(0, -0.05f, obstaclePosition), Quaternion.Euler(new Vector3(0, 0, 0)));
             removePart(newObstacle);
         }
 
-        for (cubePosition = 15; cubePosition < road.GetComponent<Renderer>().bounds.size.z - 20; cubePosition += 10)
+        for (cubePosition = 15; cubePosition < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 20; cubePosition += 10)
         {
             Instantiate(cubePrefab, new Vector3(0, 0, cubePosition), Quaternion.Euler(new Vector3(0, 0, 0)));
         }
