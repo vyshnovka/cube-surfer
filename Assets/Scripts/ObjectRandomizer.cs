@@ -7,11 +7,15 @@ public class ObjectRandomizer : MonoBehaviour
 {
     public Action<GameObject> partRemover;
     public GameObject obstaclePrefab;
+    public GameObject obstaclePart;
+
     public GameObject cubePrefab;
 
     public GameObject road;
     public GameObject roadPart;
     public GameObject roadHalfPart;
+
+    public int roadSize = 100;
 
     public void Start()
     {
@@ -23,11 +27,21 @@ public class ObjectRandomizer : MonoBehaviour
     public void roadBuild()
     {
         GameObject newRoadPart;
-        int roadPosition;
+        int roadPositionZ;
+        int roadPositionX;
 
-        for (roadPosition = 6; roadPosition < 400; roadPosition += 6)
+        for (roadPositionZ = 6, roadPositionX = 9; roadPositionZ < roadSize; roadPositionZ += 6)
         {
-            newRoadPart = Instantiate(roadPart, new Vector3(0, -0.55f, roadPosition), Quaternion.Euler(new Vector3(0, 0, 0)));
+            if (roadPositionZ < 204)
+            {
+                newRoadPart = Instantiate(roadPart, new Vector3(0, -0.55f, roadPositionZ), Quaternion.Euler(new Vector3(0, 0, 0)));
+            }
+            else
+            {
+                newRoadPart = Instantiate(roadPart, new Vector3(roadPositionX, -0.55f, 206), Quaternion.Euler(new Vector3(0, 90, 0)));
+                roadPositionX += 6;
+            }
+
             newRoadPart.transform.SetParent(road.transform);
         }
 
@@ -37,18 +51,69 @@ public class ObjectRandomizer : MonoBehaviour
     public void randomizer()
     {
         GameObject newObstacle;
-        int obstaclePosition;
-        int cubePosition;
+        int obstaclePositionZ;
+        int obstaclePositionX;
 
-        for (obstaclePosition = 20; obstaclePosition < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount; obstaclePosition += 20)
+        int obstacleCount;
+
+        for (obstaclePositionZ = 20, obstaclePositionX = 20; obstaclePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 40; obstaclePositionZ += 20)
         {
-            newObstacle = Instantiate(obstaclePrefab, new Vector3(0, -0.05f, obstaclePosition), Quaternion.Euler(new Vector3(0, 0, 0)));
-            removePart(newObstacle);
+            obstacleCount = UnityEngine.Random.Range(1, 4);
+
+            if (obstaclePositionZ < 200)
+            {
+                for (int i = 0; i < obstacleCount; i++)
+                {
+                    newObstacle = Instantiate(obstaclePrefab, new Vector3(0, (obstaclePart.GetComponent<Renderer>().bounds.size.y + 0.2f) * i, obstaclePositionZ), Quaternion.Euler(new Vector3(0, 0, 0)));
+
+                    if (i == obstacleCount - 1)
+                    {
+                        removePart(newObstacle);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < obstacleCount; i++)
+                {
+                    newObstacle = Instantiate(obstaclePrefab, new Vector3(obstaclePositionX, (obstaclePart.GetComponent<Renderer>().bounds.size.y + 0.2f) * i, 206), Quaternion.Euler(new Vector3(0, 90, 0)));
+
+                    if (i == obstacleCount - 1)
+                    {
+                        removePart(newObstacle);
+                    }
+                }
+                obstaclePositionX += 20;
+            }
+            
         }
 
-        for (cubePosition = 15; cubePosition < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 20; cubePosition += 10)
+        int cubePositionZ;
+        int cubePositionX;
+
+        int cubeCount;
+        float cubeOffset;
+
+        for (cubePositionZ = 15, cubePositionX = 15; cubePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 120; cubePositionZ += 10)
         {
-            Instantiate(cubePrefab, new Vector3(0, 0, cubePosition), Quaternion.Euler(new Vector3(0, 0, 0)));
+            cubeCount = UnityEngine.Random.Range(1, 4);
+            cubeOffset = UnityEngine.Random.Range(-2.3f, 2.3f);
+
+            if (cubePositionZ < 206)
+            {
+                for (int i = 0; i < cubeCount; i++)
+                {
+                    Instantiate(cubePrefab, new Vector3(cubeOffset, cubePrefab.GetComponent<Renderer>().bounds.size.y * i + 0.1f, cubePositionZ), Quaternion.Euler(new Vector3(0, 0, 0)));
+                }
+            } 
+            else
+            {
+                for (int i = 0; i < cubeCount; i++)
+                {
+                    Instantiate(cubePrefab, new Vector3(cubePositionX, cubePrefab.GetComponent<Renderer>().bounds.size.y * i + 0.1f, 206 + cubeOffset), Quaternion.Euler(new Vector3(0, 0, 0)));
+                }
+                cubePositionX += 15;
+            }
         }
     }
 
@@ -60,7 +125,7 @@ public class ObjectRandomizer : MonoBehaviour
         foreach (Transform child in obstacle.transform)
         {
             count = 0;
-            range = UnityEngine.Random.Range(0, 2);
+            range = UnityEngine.Random.Range(0, 4);
 
             while (count < range)
             {

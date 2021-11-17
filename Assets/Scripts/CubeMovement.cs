@@ -9,7 +9,7 @@ public class CubeMovement : MonoBehaviour
 
     public void Update()
     {
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+        //transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
 
         if (Input.GetMouseButton(0))
         {

@@ -31,8 +31,9 @@ public class CubeStacking : MonoBehaviour
 
     public void Attachment(GameObject other)
     {
+        transform.parent.GetChild(0).position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * (transform.parent.childCount - 1) + 0.1f, transform.position.z);
         other.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
-        other.transform.position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * (transform.parent.childCount - 1) + 0.1f, transform.position.z);
+        other.transform.position = new Vector3(transform.position.x, GetComponent<Renderer>().bounds.size.y * (transform.parent.childCount - 2) + 0.1f, transform.position.z);
         other.AddComponent<CubeStacking>();
         other.transform.parent = transform.parent;
     }
@@ -46,6 +47,8 @@ public class CubeStacking : MonoBehaviour
 
         Destroy(GetComponent<CubeStacking>());
         transform.parent = null;
+
+        StateManager.noCubesLeft();
     }
 
     public void OnDestroy()
