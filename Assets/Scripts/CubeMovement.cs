@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dreamteck.Splines;
 
 public class CubeMovement : MonoBehaviour
 {
@@ -9,20 +10,20 @@ public class CubeMovement : MonoBehaviour
 
     public void Update()
     {
-        //transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-
         if (Input.GetMouseButton(0))
         {
             float mouseX = Input.GetAxisRaw("Mouse X");
-            transform.Translate(Vector3.right * mouseX * sideSpeed * Time.deltaTime);
 
-            if (transform.position.x > 2.3f)
+            GetComponent<SplineFollower>().offsetModifier.keys[0].offset += Vector2.right * mouseX * sideSpeed * Time.deltaTime;
+
+            if (GetComponent<SplineFollower>().offsetModifier.keys[0].offset.x < -2.2f)
             {
-                transform.position = new Vector3(2.3f, transform.position.y, transform.position.z);
+                GetComponent<SplineFollower>().offsetModifier.keys[0].offset.x = -2.2f;
             }
-            if (transform.position.x < -2.3f)
+
+            if (GetComponent<SplineFollower>().offsetModifier.keys[0].offset.x > 2.2f)
             {
-                transform.position = new Vector3(-2.3f, transform.position.y, transform.position.z);
+                GetComponent<SplineFollower>().offsetModifier.keys[0].offset.x = 2.2f;
             }
         }
     }

@@ -20,14 +20,18 @@ public class StateManager : MonoBehaviour
     {
         if (cubeStack.transform.childCount == 2)
         {
-            print("Game over!");
-            Time.timeScale = 0;
+            UIManager.showFail();
         }
     }
 
     public void playerWin()
     {
-        print("Win!");
-        Time.timeScale = 0;
+        UIManager.showWin();
+    }
+
+    public void OnDestroy()
+    {
+        noCubesLeft -= playerFail;
+        finish -= playerWin;
     }
 }
