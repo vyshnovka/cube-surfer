@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ObjectRandomizer : MonoBehaviour
 {
-    public Action<GameObject> partRemover;
     public GameObject obstaclePrefab;
     public GameObject obstaclePart;
 
@@ -19,12 +18,10 @@ public class ObjectRandomizer : MonoBehaviour
 
     public void Start()
     {
-        partRemover += removePart;
-
-        roadBuild();
+        randomizer();
     }
 
-    public void roadBuild()
+    /*public void roadBuild()
     {
         GameObject newRoadPart;
         int roadPositionZ;
@@ -46,7 +43,7 @@ public class ObjectRandomizer : MonoBehaviour
         }
 
         randomizer();
-    }
+    }*/
 
     public void randomizer()
     {
@@ -56,7 +53,7 @@ public class ObjectRandomizer : MonoBehaviour
 
         int obstacleCount;
 
-        for (obstaclePositionZ = 20, obstaclePositionX = 20; obstaclePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 40; obstaclePositionZ += 20)
+        for (obstaclePositionZ = 20, obstaclePositionX = 20; obstaclePositionZ < 520; obstaclePositionZ += 20)
         {
             obstacleCount = UnityEngine.Random.Range(1, 4);
 
@@ -94,7 +91,7 @@ public class ObjectRandomizer : MonoBehaviour
         int cubeCount;
         float cubeOffset;
 
-        for (cubePositionZ = 10, cubePositionX = 10; cubePositionZ < roadHalfPart.GetComponent<Renderer>().bounds.size.z * road.transform.childCount - 20; cubePositionZ += 20)
+        for (cubePositionZ = 10, cubePositionX = 10; cubePositionZ < 520; cubePositionZ += 20)
         {
             cubeCount = UnityEngine.Random.Range(1, 4);
             cubeOffset = UnityEngine.Random.Range(-2.3f, 2.3f);
@@ -137,10 +134,5 @@ public class ObjectRandomizer : MonoBehaviour
                 count++;
             }
         }
-    }
-
-    public void OnDestroy()
-    {
-        partRemover -= removePart;
     }
 }
