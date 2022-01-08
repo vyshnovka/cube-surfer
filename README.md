@@ -2,7 +2,7 @@
 
 This is a simplified clone of the Cube Surfer game on Unity.
 
-The idea was to recreate cube stacking algorithm from the original game.    
+The idea was to recreate cube stacking mechanics from the original game.    
 The spline was created using the *Dreamteck Splines* plugin from Unity Asset Store.
 
 For now some problems with spline mesh still do exist and the path randomization has not been implemented.
