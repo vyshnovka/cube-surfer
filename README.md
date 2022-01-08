@@ -17,5 +17,4 @@ This is just an example of mechanics.
 
 1. Install Unity 2020.3.14 from [archive](https://unity3d.com/get-unity/download/archive).    
 2. Clone this repository using `git clone https://github.com/vyshnovka/cube-surfer.git` in Git Bash.    
-Or you can use GitHub Desktop.  
 4. Open created folder as a project in Unity Hub.    
